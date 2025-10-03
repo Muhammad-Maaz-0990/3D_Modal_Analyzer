@@ -1,0 +1,111 @@
+
+CODE STANDARDS & BEST PRACTICES
+===============================
+
+Project Tech Stack:
+- Frontend: Next.js
+- Backend: FastAPI (Python)
+- Data Storage: Amazon S3 Bucket
+- Authentication: Google API (OAuth2)
+- Payment Integration: (Stripe)
+
+-----------------------------------------
+1. General Guidelines
+-----------------------------------------
+- Maintain clean, readable, and modular code.
+- Follow separation of concerns: frontend, backend, and storage should remain independent modules.
+- Use environment variables for all secrets (DB URIs, API keys, AWS credentials).
+- Always validate inputs at both frontend and backend to prevent injection and security issues.
+
+-----------------------------------------
+2. Frontend (Node.js)
+-----------------------------------------
+- Use Next.js for UI, or Express if server-rendered pages.
+- Follow component-based architecture.
+- Use `camelCase` for variables and functions; `PascalCase` for components.
+- Keep components small and reusable.
+- State management via Context API/Redux if needed.
+- Secure API requests with proper JWT/Session handling.
+- Use ESLint + Prettier for linting and formatting.
+
+-----------------------------------------
+3. Backend (FastAPI - Python)
+-----------------------------------------
+- Use Pydantic models for request/response validation.
+- Follow RESTful API standards: `/auth/login`, `/orders/create`, `/orders/{id}`.
+- Use async functions for database and I/O operations.
+- Keep endpoints modular (auth, orders, payments, admin).
+- Document APIs using FastAPI’s built-in OpenAPI/Swagger.
+- Use logging for debugging and error tracking.
+- Code style: PEP8 (use Black for formatting, Flake8 for linting).
+
+-----------------------------------------
+4. Authentication (Google OAuth2)
+-----------------------------------------
+- Implement Google Sign-In for login.
+- If user exists -> login; else -> redirect to signup form.
+- Store only required user details in DB (email, name, Google ID).
+- Use JWT tokens for session handling after login.
+
+-----------------------------------------
+5. Data Storage (Amazon S3)
+-----------------------------------------
+- Store all uploaded 3D model files in S3.
+- Use unique file naming strategy (UUID + timestamp).
+- Validate file types and size before upload.
+- Never hardcode AWS credentials, always use environment variables or IAM roles.
+
+-----------------------------------------
+6. Orders & File Analysis Flow
+-----------------------------------------
+- User uploads 3D model file -> stored in S3.
+- Backend (FastAPI) processes file details and extracts metadata.
+- User selects material, delivery days, etc.
+- Backend calculates price dynamically (base + material + time + admin settings).
+- Store order details in database with status (Pending, Paid, Processing, Completed).
+
+-----------------------------------------
+7. Payment Integration
+-----------------------------------------
+- Use secure payment gateway (Stripe/PayPal).
+- Backend validates payment success before confirming order.
+- Store payment details securely (transaction ID, amount, status).
+
+-----------------------------------------
+8. Admin Panel
+-----------------------------------------
+- Admin can view all orders with filters (Pending, Paid, Completed).
+- Admin can configure material prices, delivery days, etc.
+- Admin can update order status and pricing rules.
+
+-----------------------------------------
+9. Git & Repo Standards
+-----------------------------------------
+- Branching:
+  - main → production-ready
+  - develop → staging/integration
+  - feature/* → new features
+  - bugfix/* → fixes
+- Commit messages:
+  - Use present tense: "Add Google login integration".
+  - Reference issues when applicable.
+- PRs must be reviewed before merge.
+
+-----------------------------------------
+10. Testing & Quality Assurance
+-----------------------------------------
+- Write unit tests for backend APIs (pytest + FastAPI test client).
+- Write frontend tests using Jest/React Testing Library.
+- Ensure code coverage ≥ 80%.
+- Run CI pipeline before merging.
+
+-----------------------------------------
+11. Security
+-----------------------------------------
+- Use HTTPS for all API calls.
+- Validate all inputs from users.
+- Escape outputs in frontend templates to prevent XSS.
+- Encrypt sensitive data before storing.
+- Rotate API keys and secrets regularly.
+
+
