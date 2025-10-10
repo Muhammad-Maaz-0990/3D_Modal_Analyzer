@@ -1,0 +1,224 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 220 25% 97%;
+    --foreground: 220 40% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 40% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 40% 10%;
+
+    --primary: 217 91% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 190 95% 55%;
+    --secondary-foreground: 220 40% 10%;
+
+    --muted: 220 20% 85%;
+    --muted-foreground: 220 20% 40%;
+
+    --accent: 280 80% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 25% 88%;
+    --input: 220 25% 88%;
+    --ring: 217 91% 50%;
+
+    --radius: 1rem;
+
+    /* Glass morphism tokens */
+    --glass-bg: 0 0% 100%;
+    --glass-border: 220 40% 90%;
+    --glass-shadow: 220 40% 20%;
+    
+    /* Gradient tokens */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 50%) 0%, hsl(280 80% 60%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(190 95% 55%) 0%, hsl(217 91% 50%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(220 25% 97%) 0%, hsl(220 20% 95%) 100%);
+    
+    /* Shadow tokens */
+    --shadow-glass: 0 8px 32px 0 hsla(217, 91%, 50%, 0.1);
+    --shadow-glass-hover: 0 8px 32px 0 hsla(217, 91%, 50%, 0.2);
+    --shadow-elevated: 0 20px 60px -15px hsla(220, 40%, 20%, 0.15);
+    
+    /* Animation tokens */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .dark {
+    --background: 220 40% 8%;
+    --foreground: 220 20% 95%;
+
+    --card: 220 35% 12%;
+    --card-foreground: 220 20% 95%;
+
+    --popover: 220 35% 12%;
+    --popover-foreground: 220 20% 95%;
+
+    --primary: 217 91% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 190 95% 60%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 30% 20%;
+    --muted-foreground: 220 20% 65%;
+
+    --accent: 280 80% 65%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 30% 20%;
+    --input: 220 30% 20%;
+    --ring: 217 91% 55%;
+
+    --glass-bg: 220 35% 12%;
+    --glass-border: 220 40% 25%;
+    --glass-shadow: 220 60% 5%;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: hsla(var(--glass-bg) / 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid hsla(var(--glass-border) / 0.3);
+    box-shadow: var(--shadow-glass);
+  }
+  
+  .glass-hover {
+    transition: var(--transition-smooth);
+  }
+  
+  .glass-hover:hover {
+    background: hsla(var(--glass-bg) / 0.85);
+    box-shadow: var(--shadow-glass-hover);
+    transform: translateY(-2px);
+  }
+  
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 20px hsla(217, 91%, 50%, 0.3);
+    }
+    to {
+      box-shadow: 0 0 30px hsla(217, 91%, 50%, 0.6);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.5s ease-out forwards;
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-scale-up {
+    animation: scaleUp 0.3s ease-out forwards;
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  @keyframes scaleUp {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
